@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS(meta = (BlueprintSpawnableComponent), hidecategories = ("Collision"))
+UCLASS(meta = (BlueprintSpawnableComponent), hidecategories = (""))
 class TANKWARS_API UTankBarrel : public UStaticMeshComponent
 {
 	GENERATED_BODY()
