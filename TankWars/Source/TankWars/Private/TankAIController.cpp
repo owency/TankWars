@@ -2,6 +2,7 @@
 
 #include "TankAIController.h"
 #include "Engine/World.h"
+#include "Tank.h"
 #include "TankWars.h"
 
 void ATankAIController::BeginPlay()
@@ -17,6 +18,21 @@ void ATankAIController::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("AI Controller controlling %s"), *(ControlledTank->GetName()));
 	}
 
+}
+
+void ATankAIController::Tick(float ticktime)
+{
+	Super::Tick(ticktime);
+
+	if (GetPlayerTank())
+	{
+		AimTowardsPlayer();
+	}
+}
+
+void ATankAIController::AimTowardsPlayer()
+{
+	GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
 }
 
 ATank* ATankAIController::GetControlledTank() const

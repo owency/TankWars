@@ -4,8 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
-#include "Tank.h"
 #include "TankAIController.generated.h"
+
+class ATank;
 
 /**
  * 
@@ -20,7 +21,11 @@ private:
 
 	ATank* GetPlayerTank() const;
 
-	void BeginPlay() override;
+	virtual void BeginPlay() override;
+
+	virtual void Tick(float) override;
+
+	void AimTowardsPlayer();
 	
 	
 };
