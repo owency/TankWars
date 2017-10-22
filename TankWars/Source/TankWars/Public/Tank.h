@@ -26,7 +26,7 @@ public:
 	void SetBarrelAndTurretReference(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet);
 
 	UFUNCTION(BluePrintCallable, Category = Setup)
-	void fire();
+	void Fire();
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -41,11 +41,17 @@ protected:
 	
 private:
 
-	UPROPERTY(EditAnywhere, Category = Firing)
-	float LaunchSpeed = 100000.00;
 
 	UPROPERTY(EditAnywhere, Category = Setup)
 	TSubclassOf<AProjectile> ProjectileBlueprint;
 
+	UPROPERTY(EditAnywhere, Category = Firing)
+	float LaunchSpeed = 100000.00;
+
+	UPROPERTY(EditDefaultsOnly, Category = Firing)
+	float ReloadTimeInSeconds = 3;
+
 	UTankBarrel* Barrel = nullptr;
+
+	double LastFireTime = 0;
 };

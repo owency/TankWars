@@ -35,9 +35,11 @@ void ATank::SetBarrelAndTurretReference(UTankBarrel* BarrelToSet, UTankTurret* T
 	Barrel = BarrelToSet;
 }
 
-void ATank::fire()
+void ATank::Fire()
 {
 
+	bool isReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
+	if (!isReloaded) { return; }
 	if (!Barrel) { return; }
 	
 	auto Projectile = GetWorld()->SpawnActor<AProjectile>(
@@ -47,7 +49,7 @@ void ATank::fire()
 	);
 
 	Projectile->LaunchProjectile(LaunchSpeed);
-
+	LastFireTime = FPlatformTime::Seconds();
 }
 
 

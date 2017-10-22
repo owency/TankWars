@@ -5,44 +5,19 @@
 #include "Tank.h"
 #include "TankWars.h"
 
-void ATankAIController::BeginPlay()
-{
-	Super::BeginPlay();
-	auto ControlledTank = GetPlayerTank();
-	if (!ControlledTank)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AI Controller not possessing a tank!"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("AI Controller controlling %s"), *(ControlledTank->GetName()));
-	}
-
-}
 
 void ATankAIController::Tick(float ticktime)
 {
 	Super::Tick(ticktime);
 
-	if (GetPlayerTank())
+	auto PlayerTank = Cast<ATank>(GetWorld()->GetFirstPlayerController()->GetPawn());
+
+	if (PlayerTank)
 	{
-		AimTowardsPlayer();
+		auto ControlledTank = Cast<ATank>(GetPawn());
+		// Aim at the player
+		ControlledTank->AimAt(PlayerTank->GetActorLocation());
+
+		ControlledTank->Fire();
 	}
-}
-
-void ATankAIController::AimTowardsPlayer()
-{
-	GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
-}
-
-ATank* ATankAIController::GetControlledTank() const
-{
-	return Cast<ATank>(GetPawn());
-}
-
-
-ATank * ATankAIController::GetPlayerTank() const
-{
-	auto PlayerTank = GetWorld()->GetFirstPlayerController()->GetPawn();
-	return Cast<ATank>(PlayerTank);
 }
