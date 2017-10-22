@@ -37,15 +37,17 @@ void ATank::SetBarrelAndTurretReference(UTankBarrel* BarrelToSet, UTankTurret* T
 
 void ATank::fire()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Welcome to the Log dingo"));
 
 	if (!Barrel) { return; }
 	
-	GetWorld()->SpawnActor<AProjectile>(
+	auto Projectile = GetWorld()->SpawnActor<AProjectile>(
 		ProjectileBlueprint,
 		Barrel->GetSocketLocation(FName("Projectile")),
 		Barrel->GetSocketRotation(FName("Projectile"))
 	);
+
+	Projectile->LaunchProjectile(LaunchSpeed);
+
 }
 
 
