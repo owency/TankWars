@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS(meta = (BlueprintSpawnableComponent), hidecategories = (""))
+UCLASS(meta = (BlueprintSpawnableComponent))
 class TANKWARS_API UTankTurret : public UStaticMeshComponent
 {
 	GENERATED_BODY()
@@ -19,6 +19,6 @@ public:
 
 private:
 
-	UPROPERTY(EditAnywhere, Category = Setup)
+	UPROPERTY(EditDefaultsOnly, Category = Setup)
 	float MaxDegreesPerSecond = 5.0;
 };
